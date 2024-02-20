@@ -41,5 +41,24 @@ public class program4 {
 		System.out.println((end-start) + " milliseconds to read the records into arraylist by state and county and sort by start time");
 		return fin;
 	}
+	
+	/**
+	 * Method to read the CSV directly into a queue
+	 * sorted by start time in ascending order
+	 * @param loc Location of the CSV file
+	 * @param state State to search for in CSV
+	 * @param county County to search for in CSV
+	 * @return Sorted Queue of accident reports from the given state+county
+	 * @throws FileNotFoundException
+	 */
+	public static Queue<Report> readToQueue(String loc, String state, String county) throws FileNotFoundException{
+		Queue<Report> end = new LinkedList<Report>();
+		ArrayList<Report> a = Scan(loc, state, county);
+		for(int i = 0; i < a.size(); i++) {
+			end.add(a.get(i));
+		}
+		return end;
+		
+	}
 
 }
