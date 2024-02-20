@@ -15,6 +15,15 @@ public class program4 {
 
 	}
 	
+	/**
+	 * Scan method to scan the CSV file and create an ArrayList of accident reports that
+	 * are from the given state and county and is sorted by start time in ascending order
+	 * @param loc Location of accidents CSV file
+	 * @param state State of the county to sort the ArrayList by
+	 * @param county County to sort the ArrayList by
+	 * @return ArrayList of report objects sorted by state+county and start time in ascending order
+	 * @throws FileNotFoundException
+	 */
 	public static ArrayList<Report> Scan(String loc, String state, String county) throws FileNotFoundException {
 		long start = System.currentTimeMillis();
 		ArrayList<Report> fin = new ArrayList<Report>();
