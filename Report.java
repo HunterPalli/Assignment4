@@ -1,5 +1,8 @@
 package accidentpack;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 public class Report implements Comparable<Report>{
 	private String ID;
 	private int Severity; 
@@ -244,11 +247,14 @@ public class Report implements Comparable<Report>{
 	}
 	
 	/**
-	 * compareTo method for comparing two reports based on their visibilities
+	 * compareTo method for comparing two reports based on their start times
 	 */
 	@Override
 	public int compareTo(Report a) {
-		return this.Visibility - a.Visibility;
+		DateFormat e = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+		String one = this.Start_Time;
+		String two = a.Start_Time;
+		return e.parse(one).compareTo(e.parse(two));
 	}
 
 }
