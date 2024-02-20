@@ -1,6 +1,7 @@
 package accidentpack;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class Report implements Comparable<Report>{
@@ -254,7 +255,13 @@ public class Report implements Comparable<Report>{
 		DateFormat e = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
 		String one = this.Start_Time;
 		String two = a.Start_Time;
-		return e.parse(one).compareTo(e.parse(two));
+		try {
+			return e.parse(one).compareTo(e.parse(two));
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return 0;
 	}
 
 }
