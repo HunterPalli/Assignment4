@@ -60,5 +60,21 @@ public class program4 {
 		return end;
 		
 	}
+	
+	/**
+	 * Method to process queues to determine number of needed counters
+	 * @param a Queue of reports to process
+	 * 
+	 */
+	public static void processQueue(Queue<Report> a) {
+		int counters = 1;
+		int time = (counters*24)*60;
+		int totalTime = 0;
+		String currentDate = "";
+		for(Report report : a) {
+		
+			}
+		System.out.println("needs " + counters + " counters.");
+	}
 
 }
