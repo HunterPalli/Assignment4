@@ -252,7 +252,7 @@ public class Report implements Comparable<Report>{
 	 */
 	@Override
 	public int compareTo(Report a) {
-		DateFormat e = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+		DateFormat e = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String one = this.Start_Time;
 		String two = a.Start_Time;
 		try {
