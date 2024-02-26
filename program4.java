@@ -12,7 +12,12 @@ public class program4 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+        String filepath = "accidents.csv";
+	String state = "CA";
+	String county = "Los Angeles";
 
+	Queue<Report> reportQueue = readtoQueue(filepath, state, county);
+	processQueue(reportQueue);
 	}
 	
 	/**
@@ -72,9 +77,29 @@ public class program4 {
 		int totalTime = 0;
 		String currentDate = "";
 		for(Report report : a) {
-		
+			//gets start time for the current report and puts it into minutes
+		        int reportStartTime = getTimeInMinutes(report.getStart_Time());
+			//checks if the date of the report is the same as the date were currently on
+		if(!report.getStart_Time().substring(0,10).equals(currentDate)){
+			currentDate = report.getStart_Time().substring(0,10); //changes the current date to the date the iterator is on
+			totalTime = reportStartTime + time; //resets the time
+			counters = 1; //resets counts for the new day
+		} else {
+			if (reportStartTime < totalTime){
+				totalTime = Math.max(totalTime, reportStartTime + time);
+			}else{
+				counters++;
+				totalTime = reportStartTime + time;
 			}
+		}	
+	}
 		System.out.println("needs " + counters + " counters.");
 	}
-
+	//Method to change the standard format of time into minutes
+       public static int getTimeInMinutes(String time){
+	       
+	       String[] sep = time.split(" ")[1].split(":");
+	       int hours = Integer.parseInt(sep[0]);
+	       int minutes = Integer.parseInt(sep[1]);
+	       return hours * 60 + minutes;
 }
