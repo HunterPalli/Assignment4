@@ -13,11 +13,22 @@ public class program4 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
         String filepath = "accidents.csv";
-	String state = "CA";
-	String county = "Los Angeles";
 
-	Queue<Report> reportQueue = readtoQueue(filepath, state, county);
-	processQueue(reportQueue);
+		Queue<Report> LosAngeles = readToQueue(args[0], "CA", "Los Angeles");
+		Queue<Report> Orange = readToQueue(args[0], "FL", "Orange");
+		Queue<Report> Harris = readToQueue(args[0], "TX", "Harris");
+		Queue<Report> Hamilton = readToQueue(args[0], "OH", "Hamilton");
+		Queue<Report> NewCastle = readToQueue(args[0], "DE", "New Castle");
+		System.out.print("Los Angeles ");
+		processQueue(LosAngeles);
+		System.out.print("Orange ");
+		processQueue(Orange);
+		System.out.print("Harris ");
+		processQueue(Harris);
+		System.out.print("Hamilton ");
+		processQueue(Hamilton);
+		System.out.print("New Castle ");
+		processQueue(NewCastle);
 	}
 	
 	/**
@@ -72,34 +83,43 @@ public class program4 {
 	 * 
 	 */
 	public static void processQueue(Queue<Report> a) {
+		long start = System.currentTimeMillis();
 		int counters = 1;
 		int time = (counters*24)*60;
 		int totalTime = 0;
 		String currentDate = "";
 		for(Report report : a) {
+			String reportDate = report.getStart_Time().substring(0, 10); 
 			//gets start time for the current report and puts it into minutes
-		        int reportStartTime = getTimeInMinutes(report.getStart_Time());
+		    int reportStartTime = getTimeInMinutes(report.getStart_Time());
 			//checks if the date of the report is the same as the date were currently on
-		if(!report.getStart_Time().substring(0,10).equals(currentDate)){
-			currentDate = report.getStart_Time().substring(0,10); //changes the current date to the date the iterator is on
-			totalTime = reportStartTime + time; //resets the time
-			counters = 1; //resets counts for the new day
-		} else {
-			if (reportStartTime < totalTime){
-				totalTime = Math.max(totalTime, reportStartTime + time);
-			}else{
-				counters++;
-				totalTime = reportStartTime + time;
+			if(!reportDate.equals(currentDate)){
+		        currentDate = reportDate; //changes the current date to the date the iterator is on
+		        time = (counters * 24) * 60; //resets the time
+		        totalTime = 0;
+		    } else {
+		    	int procTime = report.getSeverity() * 60; //calculates processing time for report
+		        if (time >= procTime){
+		        	time = time - procTime;
+		            totalTime += procTime;
+		        }else{
+		        		counters++;
+		        		totalTime += procTime; 
+			            time = ((counters * 24) * 60) - totalTime; //recalculates remaining time to compensate for new counter added
 			}
 		}	
 	}
-		System.out.println("needs " + counters + " counters.");
+		long end = System.currentTimeMillis();
+		System.out.print("needs " + counters + " counters.");
+		System.out.println("Simulation took " + (end-start) + " milliseconds to complete");
 	}
 	//Method to change the standard format of time into minutes
-       public static int getTimeInMinutes(String time){
+    public static int getTimeInMinutes(String time){
 	       
-	       String[] sep = time.split(" ")[1].split(":");
-	       int hours = Integer.parseInt(sep[0]);
-	       int minutes = Integer.parseInt(sep[1]);
-	       return hours * 60 + minutes;
+	    String[] sep = time.split(" ")[1].split(":");
+	    int hours = Integer.parseInt(sep[0]);
+	    int minutes = Integer.parseInt(sep[1]);
+	    return hours * 60 + minutes;
+	}
+	
 }
