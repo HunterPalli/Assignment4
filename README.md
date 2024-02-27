@@ -6,6 +6,7 @@ Hunter - Project leader
 Method authors:
 
 Hunter - Scan, readToQueue, fixed processQueue
+
 Ian - getTimeInMinutes, processQueue
 
 How to run:
